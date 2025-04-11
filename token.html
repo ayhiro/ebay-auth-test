@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>eBay アクセストークン取得</title>
+  </head>
+  <body>
+    <h1>🔑 アクセストークン取得</h1>
+    <pre id="output">取得中...</pre>
+
+    <script>
+      const code = new URLSearchParams(window.location.search).get("code");
+
+      if (!code) {
+        document.getElementById("output").textContent = "認可コードが見つかりませんでした。";
+      } else {
+        fetch("https://api.ebay.com/identity/v1/oauth2/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization:
+              "Basic " +
+              btoa("YOUR_CLIENT_ID:YOUR_CLIENT_SECRET"), // ←ここを後で自分の値に変える
+          },
+          body: new URLSearchParams({
+            grant_type: "authorization_code",
+            code,
+            redirect_uri: "YOUR_REDIRECT_URI", // ←ここも後で自分の値に変える
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            document.getElementById("output").textContent = JSON.stringify(data, null, 2);
+          })
+          .catch((err) => {
+            document.getElementById("output").textContent = "エラー: " + err;
+          });
+      }
+    </script>
+  </body>
+</html>
