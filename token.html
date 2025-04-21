@@ -20,12 +20,12 @@
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization:
               "Basic " +
-              btoa("YOUR_CLIENT_ID:YOUR_CLIENT_SECRET"), // ←ここを後で自分の値に変える
+              btoa("Yasuhiro-Research-PRD-ef72598d8-35e62f21:YOUR_CERT_ID_HERE"),  // ←ここ修正！
           },
           body: new URLSearchParams({
             grant_type: "authorization_code",
             code,
-            redirect_uri: "YOUR_REDIRECT_URI", // ←ここも後で自分の値に変える
+            redirect_uri: "https://ayhiro.github.io/ebay-auth-test/", // ←ここ修正！
           }),
         })
           .then((res) => res.json())
